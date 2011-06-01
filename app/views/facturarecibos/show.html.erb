@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Factura:</b>
+  <%= @facturarecibo.factura.numero %>
+</p>
+
+<p>
+  <b>Fecha:</b>
+  <%= @facturarecibo.fecha %>
+</p>
+
+<p>
+  <b>Importe:</b>
+  <%= @facturarecibo.importe %>
+</p>
+
+<p>
+  <b>Recibo:</b>
+  <%= @facturarecibo.recibo.numero %>
+</p>
+
+
+<%= link_to 'Edit', edit_facturarecibo_path(@facturarecibo) %> |
+<%= link_to 'Back', facturarecibos_path %>

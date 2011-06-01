@@ -1,0 +1,130 @@
+<% content_for(:secondary_navigation) do %>
+<%= secondary_navigation do |nav|
+    nav.item "Facturas", cliente_facturas_path(@cliente), :active => true
+    nav.item "Recibos", cliente_recibos_path(@cliente)
+    nav.item "Notas de credito", cliente_notacreditos_path(@cliente)
+	nav.item "Cuenta corriente", cuentacorriente_cliente_path(@cliente)
+end%>
+<% end %>
+
+<% content_for(:breadcrumbs) do %>
+<%= breadcrumbs do |b|
+	b.item "Principal", root_path
+    b.item "Clientes", clientes_path
+    b.item @cliente.razonsocial, root_path, :active => true
+end %>
+<%end%>
+
+<%= render 'sidebar' %>
+
+<%= semantic_attributes_for @cliente do |attr| %>
+  <%= attr.attributes do %>
+	<%= attr.attribute :razonsocial , :label => "Razón social"%>
+	<%= attr.attribute :cuit %>
+   	<%= attr.attribute :telefono %>
+   	<%= attr.attribute :direccion %>
+  	<%= attr.attribute :contacto , :label => "Contacto", :display_empty => true%>
+  <% end %>
+<% end %>
+<hr>
+<p>
+  <b>Facturas</b>
+</p>
+<table>
+ <tr>
+    <th>Numero</th>
+    <th>Fecha</th>
+    <th>Importe</th>
+    <th>Fecha Vto</th>
+  </tr>
+<% @cliente.facturas.each do |cpbte| %>
+  <tr>
+    <td><%= cpbte.numero %></td>
+    <td><%= cpbte.fecha %></td>
+    <td><%= cpbte.importe %></td>
+    <td><%= cpbte.fechavto %></td>
+  </tr>
+
+	<% cpbte.facturarecibos.each do |cpbteafectado| %>
+  		<tr>
+    		<td>recibo -------></td>
+    		<td><%= cpbteafectado.fecha %></td>
+    		<td><%= cpbteafectado.importe %></td>
+	  		<td><%= cpbteafectado.recibo.numero %></td>
+	  		<td><%= cpbteafectado.recibo.importe %></td>
+  		</tr>
+	<% end %>
+	
+	<% cpbte.facturanotacreditos.each do |cpbteafectado| %>
+		<tr>
+  		<td>nota credito --></td>
+  		<td><%= cpbteafectado.fecha %></td>
+  		<td><%= cpbteafectado.importe %></td>
+  		<td><%= cpbteafectado.factura.numero %></td>
+  		<td><%= cpbteafectado.factura.totalfactura %></td>
+		</tr>
+	<% end %>	
+<% end %>
+</table>
+
+<hr>
+<p>
+  <b>Recibos</b>
+</p>
+<table>
+ <tr>
+    <th>Numero - </th>
+    <th>Fecha - </th>
+    <th>Importe</th>
+  </tr>
+
+<% #raise @cliente.recibos.inspect %>
+<% @cliente.recibos.each do |cpbte| %>
+
+  <tr>
+    <td><%= cpbte.numero %></td>
+    <td><%= cpbte.fecha %></td>
+    <td><%= cpbte.importe %></td>
+  </tr>
+	<% cpbte.facturarecibos.each do |cpbteafectado| %>
+		<tr>
+  		<td>factura -------></td>
+  		<td><%= cpbteafectado.fecha %></td>
+  		<td><%= cpbteafectado.importe %></td>
+  		<td><%= cpbteafectado.factura.numero %></td>
+  		<td><%= cpbteafectado.factura.totalfactura %></td>
+		</tr>
+	<% end %>	
+<% end %>
+</table>
+
+<hr>
+<p>
+  <b>Nota de credito</b>
+</p>
+<table>
+ <tr>
+    <th>Numero</th>
+    <th>Fecha</th>
+    <th>Importe</th>
+  </tr>
+<% @cliente.notacreditos.each do |cpbte| %>
+  <tr>
+    <td><%= cpbte.numero %></td>
+    <td><%= cpbte.fecha %></td>
+    <td><%= cpbte.importe %></td>
+  </tr>
+	<% cpbte.facturanotacreditos.each do |cpbteafectado| %>
+		<tr>
+		<td>factura -------></td>
+		<td><%= cpbteafectado.fecha %></td>
+		<td><%= cpbteafectado.importe %></td>
+  		<td><%= cpbteafectado.factura.numero %></td>
+  		<td><%= cpbteafectado.factura.totalfactura %></td>
+		</tr>
+	<% end %>
+<% end %>
+</table>
+
+<%= link_to 'Editar', edit_cliente_path(@cliente) %> |
+<%= link_to 'Volver', clientes_path %>

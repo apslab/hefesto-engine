@@ -1,0 +1,21 @@
+<%= semantic_form_for @facturarecibo do |f| %>
+  <% if @facturarecibo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@facturarecibo.errors.count, "error") %> prohibited this factura recibo from being saved:</h2>
+
+      <ul>
+      <% @facturarecibo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= f.inputs do %>
+  <%= f.input :fecha %>
+  <%= f.input :factura, :label => true, :as => :select, :collection => Factura.all.map{|c| [c.numero, c.id]} %>
+  <%= f.input :recibo, :label => true, :as => :select, :collection => Recibo.all.map{|c| [c.numero, c.id]} %>
+  <%= f.input :importe %>
+<% end %>
+<%= f.buttons %>
+<% end %>

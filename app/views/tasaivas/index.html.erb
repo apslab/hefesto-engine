@@ -1,0 +1,40 @@
+<h1>Listado de Tasas de IVA</h1>
+
+<%= render 'sidebar' %>
+
+<% content_for(:controls) do %>
+<%= controls do |c|
+         c.item "Nuevo", new_tasaiva_path, :icon => "add"
+         c.item "Exportar PDF", root_path, :icon => "report_go", :method => :delete
+end %>
+<%end%>
+
+<% content_for(:breadcrumbs) do %>
+<%= breadcrumbs do |b|
+	b.item "Principal", root_path
+    b.item "Tasas de IVA", tasaivas_path, :active => true
+end %>
+<%end%>
+
+<table>
+  <tr>
+    <th>Detalle</th>
+    <th>Porcentaje</th>
+    <th>Vencimiento</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tasaivas.each do |tasaiva| %>
+  <tr>
+    <td><%= tasaiva.detalle %></td>
+    <td><%= tasaiva.porcentaje %></td>
+    <td><%= tasaiva.vencimiento %></td>
+
+    <td><%= link_to icon('application_go', :small, :title => 'ver'), tasaiva %></td>
+    <td><%= link_to icon('application_edit', :small, :title => 'editar'), edit_tasaiva_path(tasaiva) %></td>
+    <td><%= link_to icon('application_delete', :small, :title => 'borrar'), tasaiva, :confirm => 'Esta ud. seguro?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

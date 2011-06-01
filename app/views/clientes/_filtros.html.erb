@@ -1,0 +1,16 @@
+<% content_for(:filtros) do %>
+<div id="filters" class="accordion">
+  <h3><a href="#">Filtros</a></h3>
+  <div class="filters-content">
+	<%= semantic_form_for @search do |f| %>
+	   <%= f.inputs do %>
+	   <%= f.input :razonsocial_contains, :label => "Razon social" %>
+	   <%= f.input :cuit_contains, :label => "CUIT" %>	
+	   <% end %>
+	   <%= f.buttons do %>
+	      <%= f.commit_button :search %>
+	   <% end %>
+	<% end %>
+  </div>
+</div>
+<%end%>

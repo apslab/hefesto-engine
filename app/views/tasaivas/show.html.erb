@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Detalle:</b>
+  <%= @tasaiva.detalle %>
+</p>
+
+<p>
+  <b>Porcentaje:</b>
+  <%= @tasaiva.porcentaje %>
+</p>
+
+<p>
+  <b>Vencimiento:</b>
+  <%= @tasaiva.vencimiento %>
+</p>
+
+
+<%= link_to 'Edit', edit_tasaiva_path(@tasaiva) %> |
+<%= link_to 'Back', tasaivas_path %>

@@ -1,0 +1,12 @@
+<% content_for(:sidebar) do %>
+<div class='block'>
+  <ul class='navigation'>    
+    <li><%= link_to("Nueva Factura", new_cliente_factura_path(@cliente))%></li>
+    <li><%= link_to("Nuevo Recibo", new_recibo_path)%></li>
+    <li><%= link_to("Nueva Nota de credito", new_notacredito_path)%></li>
+	
+    <li><%= link_to("Facturas vs Recibos", facturarecibos_path)%></li>
+    <li><%= link_to("Facturas vs Notas de credito", facturanotacreditos_path)%></li>
+</ul>
+</div>
+<%end%>
