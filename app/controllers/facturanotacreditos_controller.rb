@@ -1,4 +1,4 @@
-class FacturanotacreditosController < ApplicationController
+class FacturanotacreditosController < AuthorizedController
   # GET /facturanotacreditos
   # GET /facturanotacreditos.xml
   def index

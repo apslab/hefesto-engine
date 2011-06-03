@@ -1,4 +1,4 @@
-class EmpresasController < ApplicationController
+class EmpresasController < AuthorizedController
   load_and_authorize_resource
   #load_resource
   #authorize_resource

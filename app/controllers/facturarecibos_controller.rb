@@ -1,4 +1,4 @@
-class FacturarecibosController < ApplicationController
+class FacturarecibosController < AuthorizedController
   # GET /facturarecibos
   # GET /facturarecibos.xml
   def index

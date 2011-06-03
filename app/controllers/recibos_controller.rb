@@ -1,4 +1,4 @@
-class RecibosController < ApplicationController
+class RecibosController < AuthorizedController
   # GET /recibos
   # GET /recibos.xml
   

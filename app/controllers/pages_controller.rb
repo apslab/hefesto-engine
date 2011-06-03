@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class PagesController < AuthorizedController
   def home
     @title = "Principal"
   end

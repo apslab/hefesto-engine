@@ -1,4 +1,4 @@
-class TasaivasController < ApplicationController
+class TasaivasController < AuthorizedController
   # GET /tasaivas
   # GET /tasaivas.xml
   def index

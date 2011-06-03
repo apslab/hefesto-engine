@@ -1,4 +1,4 @@
-class FacturasController < ApplicationController
+class FacturasController < AuthorizedController
   # GET /facturas
   # GET /facturas.xml
   

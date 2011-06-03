@@ -1,4 +1,4 @@
-class CondicionivasController < ApplicationController
+class CondicionivasController < AuthorizedController
   # GET /condicionivas
   # GET /condicionivas.xml
   def index

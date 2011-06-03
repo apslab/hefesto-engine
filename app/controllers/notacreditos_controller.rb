@@ -1,4 +1,4 @@
-class NotacreditosController < ApplicationController
+class NotacreditosController < AuthorizedController
   # GET /notacreditos
   # GET /notacreditos.xml
   before_filter :authenticate_user!

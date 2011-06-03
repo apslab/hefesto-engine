@@ -1,4 +1,4 @@
-class ClientesController < ApplicationController
+class ClientesController < AuthorizedController
   # GET /clientes
   # GET /clientes.xml
   before_filter :filter_customer, :only => [:show,:edit,:update,:destroy,:cuentacorriente]
