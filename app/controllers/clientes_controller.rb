@@ -132,12 +132,4 @@ protected
     #@cliente = current_company.clientes.find( params[:id] )
     @cliente = Cliente.by_company(current_company).find( params[:id] )
   end
-
 end
-
-# calendar ==> google calendar 
-# leo parte a fin de mes
-# 7 u 8 lucas => $50 la hora
-# no agregariamos funcionalidad
-# 
-

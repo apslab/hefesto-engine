@@ -1,8 +1,13 @@
 class CondicionivasController < AuthorizedController
   # GET /condicionivas
   # GET /condicionivas.xml
+  before_filter :filter_condicioniva, :only => [:show,:edit,:update,:destroy]
+  
   def index
-    @condicionivas = Condicioniva.all
+    #@condicionivas = Condicioniva.all
+
+    @search = Condicioniva.by_company(current_company).search(params[:search])
+    @condicionivas = @search.order("detalle").page(params[ :page ]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +18,6 @@ class CondicionivasController < AuthorizedController
   # GET /condicionivas/1
   # GET /condicionivas/1.xml
   def show
-    @condicioniva = Condicioniva.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @condicioniva }
@@ -34,13 +37,12 @@ class CondicionivasController < AuthorizedController
 
   # GET /condicionivas/1/edit
   def edit
-    @condicioniva = Condicioniva.find(params[:id])
   end
 
   # POST /condicionivas
   # POST /condicionivas.xml
   def create
-    @condicioniva = Condicioniva.new(params[:condicioniva])
+    @condicioniva = Condicioniva.new(params[:condicioniva].update(:empresa_id => current_company.id))
 
     respond_to do |format|
       if @condicioniva.save
@@ -56,8 +58,6 @@ class CondicionivasController < AuthorizedController
   # PUT /condicionivas/1
   # PUT /condicionivas/1.xml
   def update
-    @condicioniva = Condicioniva.find(params[:id])
-
     respond_to do |format|
       if @condicioniva.update_attributes(params[:condicioniva])
         format.html { redirect_to(@condicioniva, :notice => 'Condicioniva was successfully updated.') }
@@ -72,12 +72,17 @@ class CondicionivasController < AuthorizedController
   # DELETE /condicionivas/1
   # DELETE /condicionivas/1.xml
   def destroy
-    @condicioniva = Condicioniva.find(params[:id])
     @condicioniva.destroy
 
     respond_to do |format|
       format.html { redirect_to(condicionivas_url) }
       format.xml  { head :ok }
     end
+  end
+  
+protected 
+  # filtro general protejido
+  def filter_condicioniva
+      @condicioniva = Condicioniva.by_company(current_company).find( params[:id] )
   end
 end
