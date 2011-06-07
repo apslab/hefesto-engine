@@ -43,5 +43,29 @@ class Factura < Comprobante
   
   def total_monto_adeudado
     self.total_factura - self.total_monto_cancelado
+  end
+  
+#contabilizar
+=begin
+  def factura_total
+    account_by_part(_method_)
   end  
+
+  def factura_subtotal
+    account_by_part(_method_)    
+  end
+  
+  def factura_impuesto
+    account_by_part(_method_)    
+  end
+=end
+  
+  # ['factura_total','factura_subtotal','factura_impuesto']
+  Comprobante.referencias.grep(/^factura_/).each do |methodname|
+    def_method(methodname,"account_by_part(_method_)")    
+  end
+
+  def account_by_part(referencename)
+    self.cliente.empresa.refenciacontables.find_by_referencename(referencename).account_id
+  end
 end

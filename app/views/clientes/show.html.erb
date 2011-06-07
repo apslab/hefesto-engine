@@ -23,7 +23,9 @@ end %>
 	<%= attr.attribute :cuit %>
    	<%= attr.attribute :telefono %>
    	<%= attr.attribute :direccion %>
-  	<%= attr.attribute :contacto , :label => "Contacto", :display_empty => true%>
+  	<%= attr.attribute :contacto , :label => "Contacto", :display_empty => true %>
+   	<%= attr.attribute :condicioniva_id, :display_empty => true, :value => @cliente.condicioniva.detalle %>
+   	<%= attr.attribute :account_id, :display_empty => true, :value => @cliente.account.name %>
   <% end %>
 <% end %>
 <hr>

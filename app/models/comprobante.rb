@@ -19,6 +19,8 @@ class Comprobante < ActiveRecord::Base
   belongs_to :cliente  
   has_many :detalles, :as => :detallable
 
+  cattr_reader :referencias 
+
   before_save :calculo_total_comprobante
   
   accepts_nested_attributes_for :detalles, :allow_destroy => true, :reject_if => :all_blank  
@@ -36,6 +38,10 @@ class Comprobante < ActiveRecord::Base
   def total
     detalles.map(&:totalitem).sum
   end  
+  
+  def self.referencias
+    ['factura_total','factura_subtotal','factura_impuesto']
+  end
   
 protected
 def calculo_total_comprobante

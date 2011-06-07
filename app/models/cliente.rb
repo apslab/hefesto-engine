@@ -30,6 +30,8 @@ class Cliente < ActiveRecord::Base
   end
    
   belongs_to :condicioniva
+  belongs_to :account
+  
   #belongs_to :empresa
 
   validates :cuit, :presence => true, :length => { :maximum => 11 }
@@ -41,7 +43,7 @@ class Cliente < ActiveRecord::Base
   validates_numericality_of :cuit, :only_integer => true, :message => "solo numeros"
   # validates_inclusion_of :cuit, :in => 20000000000..38000000000, :message => "solo puede ingresar numeros entre 20 y 38."
 
-  attr_accessible :razonsocial, :condicioniva_id, :codigo, :cuit, :telefono, :direccion, :contacto, :empresa_id
+  attr_accessible :razonsocial, :condicioniva_id, :codigo, :cuit, :telefono, :direccion, :contacto, :empresa_id, :account_id
 
   scope :sin_telefono, where("clientes.telefono = '' ")
   scope :no_actualizados, where("updated_at IS NULL" )
