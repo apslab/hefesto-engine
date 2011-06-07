@@ -59,13 +59,77 @@ class Factura < Comprobante
     account_by_part(_method_)    
   end
 =end
-  
+
   # ['factura_total','factura_subtotal','factura_impuesto']
   Comprobante.referencias.grep(/^factura_/).each do |methodname|
-    def_method(methodname,"account_by_part(_method_)")    
+    define_method(methodname) { account_by_part(__method__) }    
   end
 
   def account_by_part(referencename)
     self.cliente.empresa.refenciacontables.find_by_referencename(referencename).account_id
   end
+    
+  def to_entry
+    Entry.new do |entry|
+      entry.date_to = Date.today
+      # cada referencia es mapeada al asiento
+      Comprobante.referencias.grep(/^factura_/).each do |methodname|
+        entry.details.new
+        
+        entry.details.account_id = self.factura_total()
+        entry.details.description = methodname.to_s
+        entry.details.credit = 0
+        entry.details.debit = 0
+
+        entry.details.new
+        
+        entry.details.account_id = self.factura_subtotal()
+        entry.details.description = methodname.to_s
+        entry.details.credit = 0
+        entry.details.debit = 0
+
+        entry.details.new
+        
+        entry.details.account_id = self.factura_impuesto()
+        entry.details.description = methodname.to_s
+        entry.details.credit = 0
+        entry.details.debit = 0
+      end
+    end
+    return entry
+  end
 end
+
+=begin
+aqui en Factura
+
+def to_entry
+  returnig Entry.new do |Entry|
+  # empiezo el mapping de
+  entry.attributo = selffactura.elatributoquelocompleta
+  end
+end
+
+de esa forma dado que tenes una factura
+fac = Factura.first
+llegas a su entry de contabilidad
+asi
+fac.to_entry
+eso devuelve un objecto entry, listo para ser salvado
+o lo que fuere
+me explique o es medio chino?
+lo piola de este approach es que te queda todo encapsulado en el modelo
+es como hacer la factura xml
+o jston
+to_json, o to_xml
+bueno aca es hacer la factura una entry de contable
+to_entry
+
+me quede pensando
+no necesitas returning en este caso
+poirque
+Entry.new do |entry|
+# inicializacion loca de entry
+end
+devuelve un obj Entry
+=end
