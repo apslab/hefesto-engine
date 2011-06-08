@@ -1,22 +1,22 @@
 <% content_for(:breadcrumbs) do %>
 <%= breadcrumbs do |b|
 	b.item "Principal", root_path
-    b.item "Clientes", clientes_path
-    b.item @cliente.razonsocial, root_path, :active => true
+    b.item "Suppliers", suppliers_path
+    b.item @supplier.razonsocial, root_path, :active => true
 end %>
 <%end%>
 
 <%= render 'sidebar' %>
 
-<%= semantic_attributes_for @cliente do |attr| %>
+<%= semantic_attributes_for @supplier do |attr| %>
   <%= attr.attributes do %>
 	<%= attr.attribute :razonsocial , :label => "Razón social"%>
 	<%= attr.attribute :cuit %>
    	<%= attr.attribute :telefono %>
    	<%= attr.attribute :direccion %>
   	<%= attr.attribute :contacto , :label => "Contacto", :display_empty => true %>
-   	<%= attr.attribute :condicioniva_id, :display_empty => true, :value => @cliente.condicioniva.try('detalle') %>
-   	<%= attr.attribute :account_id, :display_empty => true, :value => @cliente.account.try('name') %>
+   	<%= attr.attribute :condicioniva_id, :display_empty => true, :value => @supplier.condicioniva.try('detalle') %>
+   	<%= attr.attribute :account_id, :display_empty => true, :value => @supplier.account.try('name') %>
   <% end %>
 <% end %>
 <hr>
@@ -30,7 +30,7 @@ end %>
     <th>Importe</th>
     <th>Fecha Vto</th>
   </tr>
-<% @cliente.facturas.each do |cpbte| %>
+<% @supplier.facturas.each do |cpbte| %>
   <tr>
     <td><%= cpbte.numero %></td>
     <td><%= cpbte.fecha %></td>
@@ -71,8 +71,8 @@ end %>
     <th>Importe</th>
   </tr>
 
-<% #raise @cliente.recibos.inspect %>
-<% @cliente.recibos.each do |cpbte| %>
+<% #raise @supplier.recibos.inspect %>
+<% @supplier.recibos.each do |cpbte| %>
 
   <tr>
     <td><%= cpbte.numero %></td>
@@ -101,7 +101,7 @@ end %>
     <th>Fecha</th>
     <th>Importe</th>
   </tr>
-<% @cliente.notacreditos.each do |cpbte| %>
+<% @supplier.notacreditos.each do |cpbte| %>
   <tr>
     <td><%= cpbte.numero %></td>
     <td><%= cpbte.fecha %></td>
@@ -119,5 +119,5 @@ end %>
 <% end %>
 </table>
 
-<%= link_to 'Editar', edit_cliente_path(@cliente) %> |
-<%= link_to 'Volver', clientes_path %>
+<%= link_to 'Editar', edit_supplier_path(@supplier) %> |
+<%= link_to 'Volver', suppliers_path %>

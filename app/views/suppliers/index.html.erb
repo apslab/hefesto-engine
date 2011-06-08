@@ -1,0 +1,50 @@
+<h1>Listado de proveedores</h1>
+
+<%= render 'filtros' %>
+
+<% content_for(:controls) do %>
+<%= controls do |c|
+         c.item "Nuevo", new_supplier_path, :icon => "add"
+         c.item "Exportar PDF", suppliers_path, :icon => "report_go"
+end %>
+<%end%>
+
+<% content_for(:breadcrumbs) do %>
+<%= breadcrumbs do |b|
+	b.item "Principal", root_path
+    b.item "suppliers", suppliers_path, :active => true
+end %>
+<%end%>
+
+<table>
+  <tr>
+    <th>Codigo</th>
+    <th>Razon social</th>
+    <th>Cuit</th>
+    <th>Condicion IVA</th>
+    <th>Telefono</th>
+    <th>Direccion</th>
+    <th>Contacto</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @suppliers.each do |supplier| %>
+  <tr>
+    <td><%= supplier.codigo %></td>
+    <td><%= supplier.razonsocial %></td>
+    <td><%= supplier.cuit %></td>
+    <td><%= supplier.condicioniva.try(:detalle) %></td>
+    <td><%= supplier.telefono %></td>
+    <td><%= supplier.direccion %></td>
+    <td><%= supplier.contacto %></td>
+    <td><%= link_to icon('application_go', :small, :title => 'ver'), supplier %></td>
+    <td><%= link_to icon('application_edit', :small, :title => 'editar'), edit_supplier_path(supplier) %></td>
+    <td><%= link_to icon('application_delete', :small, :title => 'borrar'), supplier, :confirm => 'Esta ud. seguro?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @suppliers %>
+<br/>
+<br/>

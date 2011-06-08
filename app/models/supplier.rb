@@ -1,7 +1,5 @@
 # == Schema Information
-# Schema version: 20110512124317
-#
-# Table name: clientes
+# Table name: suppliers
 #
 #  id              :integer         not null, primary key
 #  codigo          :string(255)
@@ -16,7 +14,7 @@
 #  empresa_id      :integer
 #
 
-class Cliente < ActiveRecord::Base
+class Supplier < ActiveRecord::Base
   has_many :facturas
   has_many :recibos
   has_many :notacreditos
@@ -31,8 +29,6 @@ class Cliente < ActiveRecord::Base
    
   belongs_to :condicioniva
   belongs_to :account
-  
-  #belongs_to :empresa
 
   validates :cuit, :presence => true, :length => { :maximum => 11 }
   validates :razonsocial, :presence => true
@@ -41,29 +37,22 @@ class Cliente < ActiveRecord::Base
   validates_uniqueness_of :cuit, :scope => [:empresa_id]
 
   validates_numericality_of :cuit, :only_integer => true, :message => "solo numeros"
-  # validates_inclusion_of :cuit, :in => 20000000000..38000000000, :message => "solo puede ingresar numeros entre 20 y 38."
 
   attr_accessible :razonsocial, :condicioniva_id, :codigo, :cuit, :telefono, :direccion, :contacto, :empresa_id, :account_id
 
-  scope :sin_telefono, where("clientes.telefono = '' ")
+  scope :sin_telefono, where("suppliers.telefono = '' ")
   scope :no_actualizados, where("updated_at IS NULL" )
-  scope :orden_alfabetico, order("clientes.razonsocial")  
+  scope :orden_alfabetico, order("suppliers.razonsocial")  
   scope :by_company, lambda {|company| where(:empresa_id => company.id) }
   
   delegate :saldo , :to => :comprobantes
   
-  # control para 
   before_destroy :control_sin_comprobantes
-  
-  # funcionalidad: accesible_by(current_ability)) 
-  # 1) rails g cancan:ability
-  
+    
   def control_sin_comprobantes
-
    if [comprobantes].any? {|cpbte| cpbte.any? }
      self.errors[:base] = "error que queres hacer?"
      return false
    end   
   end
-  
 end

@@ -97,8 +97,8 @@ class FacturasController < AuthorizedController
        pdf.draw_text "Factura numero: 0000-" + @factura.numero.to_s, :at => [300,710], :size => 14
        pdf.draw_text "Fecha de emision: " + @factura.fecha.to_s, :at => [300,695], :size => 14
        
-       empresa = "public/images/clinicA.jpg" 
-       pdf.image empresa, :at => [0,729], :width => 100
+       #empresa = "public/images/clinicA.jpg" 
+       #pdf.image empresa, :at => [0,729], :width => 100
 
 # recuadro de la letra
        pdf.line_width = 1

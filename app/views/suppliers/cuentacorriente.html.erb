@@ -1,4 +1,4 @@
-<h1>Listado de cuenta corriente del cliente <%= @cliente.razonsocial %></h1>
+<h1>Listado de cuenta corriente del proveedor <%= @supplier.razonsocial %></h1>
 <table>
  <tr>
     <th>T.C.</th>	
@@ -22,9 +22,9 @@
   <td>Saldo</td>	
   <td></td>
   <td></td>
-  <td align="right"><%= @cliente.saldo %></td>
+  <td align="right"><%= @supplier.saldo %></td>
   <td></td>
 </tr>
 </table>
 
-<%= link_to 'Volver', cliente_path(@cliente) %>
+<%= link_to 'Volver', supplier_path(@supplier) %>
