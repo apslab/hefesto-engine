@@ -5,7 +5,7 @@ class SuppliersController < AuthorizedController
   
   def index
     @search = Supplier.by_company(current_company).search(params[:search])
-    @clientes = @search.order("razonsocial").page(params[ :page ]).per(10)
+    @suppliers = @search.order("razonsocial").page(params[ :page ]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +29,7 @@ class SuppliersController < AuthorizedController
   end
 
   def new
-    @supplier = current_company.supplier.build
+    @supplier = current_company.suppliers.build
     
     respond_to do |format|
       format.html # new.html.erb

@@ -30,33 +30,13 @@ end %>
     <th>Importe</th>
     <th>Fecha Vto</th>
   </tr>
-<% @supplier.facturas.each do |cpbte| %>
+<% @supplier.facturacps.each do |cpbte| %>
   <tr>
     <td><%= cpbte.numero %></td>
     <td><%= cpbte.fecha %></td>
     <td><%= cpbte.importe %></td>
     <td><%= cpbte.fechavto %></td>
-  </tr>
-
-	<% cpbte.facturarecibos.each do |cpbteafectado| %>
-  		<tr>
-    		<td>recibo -------></td>
-    		<td><%= cpbteafectado.fecha %></td>
-    		<td><%= cpbteafectado.importe %></td>
-	  		<td><%= cpbteafectado.recibo.numero %></td>
-	  		<td><%= cpbteafectado.recibo.importe %></td>
-  		</tr>
-	<% end %>
-	
-	<% cpbte.facturanotacreditos.each do |cpbteafectado| %>
-		<tr>
-  		<td>nota credito --></td>
-  		<td><%= cpbteafectado.fecha %></td>
-  		<td><%= cpbteafectado.importe %></td>
-  		<td><%= cpbteafectado.factura.numero %></td>
-  		<td><%= cpbteafectado.factura.totalfactura %></td>
-		</tr>
-	<% end %>	
+  </tr>	
 <% end %>
 </table>
 
@@ -72,22 +52,13 @@ end %>
   </tr>
 
 <% #raise @supplier.recibos.inspect %>
-<% @supplier.recibos.each do |cpbte| %>
+<% @supplier.recibocps.each do |cpbte| %>
 
   <tr>
     <td><%= cpbte.numero %></td>
     <td><%= cpbte.fecha %></td>
     <td><%= cpbte.importe %></td>
   </tr>
-	<% cpbte.facturarecibos.each do |cpbteafectado| %>
-		<tr>
-  		<td>factura -------></td>
-  		<td><%= cpbteafectado.fecha %></td>
-  		<td><%= cpbteafectado.importe %></td>
-  		<td><%= cpbteafectado.factura.numero %></td>
-  		<td><%= cpbteafectado.factura.totalfactura %></td>
-		</tr>
-	<% end %>	
 <% end %>
 </table>
 
@@ -101,21 +72,12 @@ end %>
     <th>Fecha</th>
     <th>Importe</th>
   </tr>
-<% @supplier.notacreditos.each do |cpbte| %>
+<% @supplier.notacreditocps.each do |cpbte| %>
   <tr>
     <td><%= cpbte.numero %></td>
     <td><%= cpbte.fecha %></td>
     <td><%= cpbte.importe %></td>
   </tr>
-	<% cpbte.facturanotacreditos.each do |cpbteafectado| %>
-		<tr>
-		<td>factura -------></td>
-		<td><%= cpbteafectado.fecha %></td>
-		<td><%= cpbteafectado.importe %></td>
-  		<td><%= cpbteafectado.factura.numero %></td>
-  		<td><%= cpbteafectado.factura.totalfactura %></td>
-		</tr>
-	<% end %>
 <% end %>
 </table>
 

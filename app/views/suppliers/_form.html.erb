@@ -11,7 +11,7 @@
   <%= f.input :contacto %>
   <%= f.input :account, :label => true, :as => :select, :collection => 
 current_company.accounts.leaves.map{|a|[a.self_and_ancestors.map(&:name).join(' &raquo; ').html_safe, a.id]} , :include_blank => true %>
-<% end %> 
+<% end %>
 
 <%= f.buttons %>
 <% end %>

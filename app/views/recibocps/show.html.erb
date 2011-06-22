@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cliente:</b>
+  <%= @recibo.cliente.razonsocial %>
+</p>
+
+<p>
+  <b>Fecha:</b>
+  <%= @recibo.fecha %>
+</p>
+
+<p>
+  <b>Importe:</b>
+  <%= @recibo.importe %>
+</p>
+
+<p>
+  <b>Numero:</b>
+  <%= @recibo.numero %>
+</p>
+
+
+<%= link_to 'Editar', edit_recibo_path(@recibo) %> |
+<%= link_to 'Volver', recibos_path %>

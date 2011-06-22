@@ -1,0 +1,53 @@
+<h1>Listado de facturas</h1>
+
+<%= render 'filtros' %>
+
+<% content_for(:controls) do %>
+<%= controls do |c|
+         c.item "Nuevo", new_factura_path, :icon => "add"
+         c.item "Exportar PDF", root_path, :icon => "report_go", :method => :delete
+end %>
+<%end%>
+
+<% content_for(:breadcrumbs) do %>
+<%= breadcrumbs do |b|
+	b.item "Principal", root_path
+    b.item "Clientes", clientes_path, :active => true
+end %>
+<%end%>
+
+<table>
+  <tr>
+    <th>Cliente</th>
+    <th>Fecha</th>
+    <th align="center">Importe Total</th>
+    <th align="center">Numero</th>
+    <th>Fecha vencimiento</th>
+	<th>Items Totales</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @facturas.each do |factura| %>
+  <tr>
+    <td><%= factura.cliente.try(:razonsocial) %></td>
+    <td><%= factura.fecha %></td>
+    <td align="right"><%= factura.total %></td>
+    <td align="right"><%= factura.numero %></td>
+    <td><%= factura.fechavto %></td>
+    <td><%= factura.count_items %></td>
+    <td><%= link_to icon('application_go', :small, :title => 'ver'), factura %></td>
+<% if factura.isprinted? %>
+	<td></td>
+	<td></td>
+<% else %>
+    <td><%= link_to icon('application_edit', :small, :title => 'editar'), edit_factura_path(factura) %></td>
+    <td><%= link_to icon('application_delete', :small, :title => 'borrar'), factura, :confirm => 'Esta ud. seguro?', :method => :delete %></td>
+<% end %>
+    <td><%= link_to icon('printer', :small, :title => 'Imprimir'), print_factura_path( factura ) %></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @facturas %>
+<br/>
+<br/>

@@ -1,6 +1,17 @@
 <h1>Editando proveedor</h1>
 
-<%= render 'form' %>
+<% content_for(:controls) do %>
+<%= controls do |c|
+         c.item "Ver", supplier_path(@supplier), :icon => "show"
+end %>
+<%end%>
 
-<%= link_to 'Ver', @supplier %> |
-<%= link_to 'Volver', suppliers_path %>
+<% content_for(:breadcrumbs) do %>
+<%= breadcrumbs do |b|
+	b.item "Principal", root_path
+    b.item "Proveedores", suppliers_path
+    b.item @supplier.razonsocial, root_path, :active => true
+end %>
+<%end%>
+
+<%= render 'form' %>
