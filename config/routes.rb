@@ -1,30 +1,28 @@
 Rails.application.routes.draw do
-  resources :empresas
+#  resources :empresas
+  # resources :facturas, :as => "hefesto_facturas", :controller => 'hefesto/facturas'
 
-  resources :facturanotacreditos
+  scope "/compras" do
+    resources :facturas, :controller => 'hefesto/facturas'
+    resources :notacreditos, :controller => 'hefesto/notacreditos'
+    resources :recibos, :controller => 'hefesto/recibos'
+    resources :facturanotacreditos, :controller => 'hefesto/facturanotacreditos'
+    resources :facturarecibos, :controller => 'hefesto/facturarecibos'
 
-  resources :facturarecibos
-
-  resources :notacreditos
-
-  resources :recibos
-
-  resources :suppliers do 
-    resources :facturas do
+    resources :suppliers, :path => "proveedores" do
       member do
-        get 'print', :action => :imprimir 
+        get 'list_accounts', :action => :list_accounts
+        get 'cuentacorriente', :action => :cuentacorriente 
       end
-    end  
-    resources :recibos
-    resources :notacreditos
-    member do
-      get 'list_accounts', :action => :list_accounts
+       
+      resources :facturas, :as => "hefesto_facturas", :controller => 'hefesto/facturas' do
+        member do
+          get 'print', :action => :imprimir 
+        end
+      end  
 
-      get 'cuentacorriente', :action => :cuentacorriente 
-    end
-  end  
-    
-  resources :facturas do
-    resources :facturadetalles, :only => [:new, :create, :index, :destroy, :edit]
+      resources :recibos, :as => "compra_recibos", :controller => 'hefesto/recibos'
+      resources :notacreditos, :as => "compra_notacreditos", :controller => 'hefesto/notacreditos'
+    end  
   end
 end

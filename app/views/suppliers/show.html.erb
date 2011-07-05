@@ -30,7 +30,7 @@ end %>
     <th>Importe</th>
     <th>Fecha Vto</th>
   </tr>
-<% @supplier.facturacps.each do |cpbte| %>
+<% @supplier.facturas.each do |cpbte| %>
   <tr>
     <td><%= cpbte.numero %></td>
     <td><%= cpbte.fecha %></td>
@@ -52,7 +52,7 @@ end %>
   </tr>
 
 <% #raise @supplier.recibos.inspect %>
-<% @supplier.recibocps.each do |cpbte| %>
+<% @supplier.recibos.each do |cpbte| %>
 
   <tr>
     <td><%= cpbte.numero %></td>
@@ -72,7 +72,7 @@ end %>
     <th>Fecha</th>
     <th>Importe</th>
   </tr>
-<% @supplier.notacreditocps.each do |cpbte| %>
+<% @supplier.notacreditos.each do |cpbte| %>
   <tr>
     <td><%= cpbte.numero %></td>
     <td><%= cpbte.fecha %></td>

@@ -1,0 +1,42 @@
+<h1>Listado de facturas</h1>
+
+<% content_for(:breadcrumbs) do %>
+<%= breadcrumbs do |b|
+	b.item "Principal", root_path
+    b.item "Proveedores", suppliers_path, :active => true
+end %>
+<%end%>
+
+<table>
+  <tr>
+    <th>Proveedor</th>
+    <th>Fecha</th>
+    <th align="center">Importe Total</th>
+    <th align="center">Numero</th>
+    <th>Fecha vencimiento</th>
+	<th>Items Totales</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @facturas.each do |factura| %>
+  <tr>
+    <td><%= factura.supplier.try(:razonsocial) %></td>
+    <td><%= factura.fecha %></td>
+    <td align="right"><%= factura.total %></td>
+    <td align="right"><%= factura.numero %></td>
+    <td><%= factura.fechavto %></td>
+    <td><%= factura.count_items %></td>
+    <td><%= link_to icon('application_go', :small, :title => 'ver'), supplier_hefesto_factura_path(factura.supplier,factura) %></td>
+<% if factura.isprinted? %>
+	<td></td>
+	<td></td>
+<% else %>
+    <td><%= link_to icon('application_edit', :small, :title => 'editar'), edit_factura_path(factura) %></td>
+<% end %>
+    <td><%= link_to icon('printer', :small, :title => 'Imprimir'), print_supplier_hefesto_factura_path(factura.supplier, factura ) %></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<br/>

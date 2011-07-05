@@ -1,0 +1,51 @@
+<%= semantic_attributes_for @notacredito do |attr| %>
+  <%= attr.attributes "Cabecera" do %>
+
+  	<%= attr.attribute :fecha %>
+  	<%= attr.attribute :numero , :label => "Numero de nota de credito"%>
+  	<%= attr.attribute :total_notacredito, :label => "Total de nota de credito" %>
+  	<%= attr.attribute :fechavto %>
+
+	<%= attr.attributes :for => :cliente do |cliente| %>
+		<%= cliente.attribute :razonsocial , :label => "Razón social"%>
+	 	<%= cliente.attribute :cuit %>
+   	  	<%= cliente.attribute :telefono %>
+   	  	<%= cliente.attribute :direccion %>
+	<% end.html_safe %>
+
+  	<%= attr.attribute :count_items, :label => "Cantidad de items" %>
+  <% end %>
+<% end %>
+
+<table>
+  <tr>
+	 <th>Descripcion</th>
+	 <th align="center">Cantidad</th>
+	 <th align="center">Precio unitario</th>
+	 <th align="center">IVA</th>
+	 <th align="center">Precio total</th>
+	 <th></th>
+	 <th></th>
+	 <th></th>	
+  </tr>
+<% @notacredito.detalles.each do |item| %>
+  <tr>
+    <td align="left" ><%= item.descripcion %></td>
+    <td align="right"><%= item.cantidad %></td>
+    <td align="right"><%= number_to_currency(item.preciounitario) %></td>
+    <td align="right"><%= number_to_percentage(item.tasaiva, :precision => 2) %></td>
+    <td align="right"><%= number_to_currency(item.totalitem) %></td>
+  </tr>
+<% end %>
+<tr>
+  <td align="left" ><b>Total :</b></td>
+  <td align="right"></td>
+  <td align="right"></td>
+  <td align="right"></td>
+  <td align="right"><%= number_to_currency(@notacredito.total_factura) %></td>
+</tr>
+</table>
+</br>
+
+<%= link_to 'Edit', edit_notacredito_path(@notacredito) %> |
+<%= link_to 'Back', notacreditos_path %>

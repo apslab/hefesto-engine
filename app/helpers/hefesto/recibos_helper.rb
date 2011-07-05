@@ -1,0 +1,2 @@
+module Hefesto::RecibosHelper
+end

@@ -15,14 +15,14 @@
 #
 
 class Supplier < ActiveRecord::Base
-  has_many :facturacps
-  has_many :recibocps
-  has_many :notacreditocps
+  has_many :facturas, :class_name => '::Hefesto::Factura'
+  has_many :recibos, :class_name => '::Hefesto::Recibo'
+  has_many :notacreditos, :class_name => '::Hefesto::Notacredito'
   has_many :comprobantes do 
     def saldo
-      fc = where("Type = 'Facturacp'").sum(:importe)
-      nc = where("Type = 'Notacreditocp'").sum(:importe)
-      rc = where("Type = 'Recibocp'").sum(:importe)
+      fc = where("Type = 'Hefesto::Factura'").sum(:importe)
+      nc = where("Type = 'Hefesto::Notacredito'").sum(:importe)
+      rc = where("Type = 'Hefesto::Recibo'").sum(:importe)
       fc - nc - rc
     end
   end

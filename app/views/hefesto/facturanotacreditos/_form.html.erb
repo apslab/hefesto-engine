@@ -1,0 +1,21 @@
+<%= semantic_form_for @facturanotacredito do |f| %>
+  <% if @facturanotacredito.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@facturanotacredito.errors.count, "error") %> prohibited this factura nota de credito from being saved:</h2>
+
+      <ul>
+      <% @facturanotacredito.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= f.inputs do %>
+  <%= f.input :fecha %>
+  <%= f.input :factura, :label => true, :as => :select, :collection => Factura.all.map{|c| [c.numero, c.id]} %>
+  <%= f.input :notacredito, :label => true, :as => :select, :collection => Notacredito.all.map{|c| [c.numero, c.id]} %>
+  <%= f.input :importe %>
+<% end %>
+<%= f.buttons %>
+<% end %>

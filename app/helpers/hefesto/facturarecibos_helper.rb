@@ -1,0 +1,2 @@
+module Hefesto::FacturarecibosHelper
+end
