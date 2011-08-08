@@ -6,6 +6,13 @@
 end %>
 <%end%>
 
+<% content_for(:controls) do %>
+<%= controls do |c|
+         c.item "Editar", edit_supplier_path(@supplier), :icon => "application_form_edit"
+         c.item "Volver", suppliers_path, :icon => "application_go"
+end %>
+<%end%>
+
 <%= render 'sidebar' %>
 
 <%= semantic_attributes_for @supplier do |attr| %>
@@ -80,6 +87,3 @@ end %>
   </tr>
 <% end %>
 </table>
-
-<%= link_to 'Editar', edit_supplier_path(@supplier) %> |
-<%= link_to 'Volver', suppliers_path %>

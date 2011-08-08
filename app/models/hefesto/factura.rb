@@ -1,6 +1,8 @@
 # == Schema Information
 # Schema version: 20110516183603
-#
+
+# B331425 anses072011
+
 # Table name: comprobantes
 #
 #  id         :integer         not null, primary key
