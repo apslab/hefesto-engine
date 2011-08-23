@@ -10,6 +10,13 @@ class SuppliersController < AuthorizedController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @suppliers }
+      format.pdf do
+         dump_tmp_filename = Rails.root.join('tmp',@suppliers.first.cache_key)
+         Dir.mkdir(dump_tmp_filename.dirname) unless File.directory?(dump_tmp_filename.dirname)
+         save_list_pdf_to(dump_tmp_filename,@suppliers) 
+         send_file(dump_tmp_filename, :type => :pdf, :disposition => 'attachment', :filename => "proveedores.pdf")
+         File.delete(dump_tmp_filename)           
+      end
     end
   end
 
@@ -17,20 +24,19 @@ class SuppliersController < AuthorizedController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @supplier }
-      format.pdf { render :pdf => "cta"+@supplier.razonsocial,
-                       :template => 'supplier/show.html.erb',
-                       :show_as_html => params[:debug].present?,      # allow debuging based on url param
-                       :layout => 'pdf.html.erb',
-                       :footer => {
-                          :right => "Reporte generado el #{l DateTime.current}"
-                       }
-                 }
+      format.pdf do
+        dump_tmp_filename = Rails.root.join('tmp',@supplier.cache_key)
+        Dir.mkdir(dump_tmp_filename.dirname) unless File.directory?(dump_tmp_filename.dirname)
+        save_pdf_to(dump_tmp_filename,@supplier)
+        send_file(dump_tmp_filename, :type => :pdf, :disposition => 'attachment', :filename => "#{@supplier.razonsocial}.pdf")
+        File.delete(dump_tmp_filename)
+      end
     end
   end
 
   def new
     @supplier = current_company.suppliers.build
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @supplier }
@@ -41,7 +47,7 @@ class SuppliersController < AuthorizedController
   end
 
   def create
-    @supplier = Supplier.new(params[:supplier].update(:empresa_id => current_company.id))
+    @supplier = Supplier.new(params[:supplier].update(:company_id => current_company.id))
 
     respond_to do |format|
       if @supplier.save

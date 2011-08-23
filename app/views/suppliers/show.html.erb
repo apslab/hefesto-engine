@@ -8,8 +8,9 @@ end %>
 
 <% content_for(:controls) do %>
 <%= controls do |c|
-         c.item "Editar", edit_supplier_path(@supplier), :icon => "application_form_edit"
-         c.item "Volver", suppliers_path, :icon => "application_go"
+    c.item "Exportar PDF", supplier_path( :format => 'pdf'), :icon => "report_go"
+    c.item "Editar", edit_supplier_path(@supplier), :icon => "application_form_edit"
+    c.item "Volver", suppliers_path, :icon => "application_go"
 end %>
 <%end%>
 

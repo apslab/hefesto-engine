@@ -4,18 +4,24 @@
 <%= f.inputs(:class => :column_left ) do %>
   <%= f.input :codigo %>
   <%= f.input :razonsocial %>
+  <%= f.input :fantasyname %>
   <%= f.input :cuit, :as => :numeric , :input_html => { :size => 11, :style => "text-align:left;" }%>
-  <%= f.input :condicioniva, :label => true, :as => :select, :collection => Condicioniva.all.map{|c| [c.detalle, c.id]}, :include_blank => false %>
+  <%= f.input :condicioniva_id, :as => :select, :collection => current_company.condicionivas.all.map{|c| [c.detalle, c.id]}, :include_blank => false %>
+  <%= f.input :observation %>
 <% end %>
 
 <%= f.inputs(:class => :column_right ) do %>
   <%= f.input :telefono %>
   <%= f.input :direccion %>
+  <%= f.input :locality %>		
+  <%= f.input :province_id, :as => :select, :collection => Province.all.map{|c| [c.name, c.id]}, :include_blank => false %>
+  <%= f.input :postalcode %>	
+  <%= f.input :email, :as => :string %>
   <%= f.input :contacto %>
-  <%= f.input :account, :label => true, :as => :select, :collection => 
+  <%= f.input :account_id, :as => :select, :collection => 
 current_company.accounts.leaves.map{|a|[a.self_and_ancestors.map(&:name).join(' &raquo; ').html_safe, a.id]} , :include_blank => true %>
 <% end %>
 <hr class="clear">
 
-<%= f.buttons %>
+<%= render('shared/common_form_buttons') %>
 <% end %>

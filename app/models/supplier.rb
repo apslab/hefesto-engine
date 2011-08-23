@@ -11,7 +11,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  condicioniva_id :integer
-#  empresa_id      :integer
+#  company_id      :integer
 #
 
 class Supplier < ActiveRecord::Base
@@ -33,17 +33,17 @@ class Supplier < ActiveRecord::Base
   validates :cuit, :presence => true, :length => { :maximum => 11 }
   validates :razonsocial, :presence => true
   validates :codigo, :presence => true
-  validates_uniqueness_of :codigo, :scope => [:empresa_id]
-  validates_uniqueness_of :cuit, :scope => [:empresa_id]
+  validates_uniqueness_of :codigo, :scope => [:company_id]
+  validates_uniqueness_of :cuit, :scope => [:company_id]
 
   validates_numericality_of :cuit, :only_integer => true, :message => "solo numeros"
 
-  attr_accessible :razonsocial, :condicioniva_id, :codigo, :cuit, :telefono, :direccion, :contacto, :empresa_id, :account_id
+  attr_accessible :razonsocial, :condicioniva_id, :codigo, :cuit, :telefono, :direccion, :contacto, :company_id, :account_id
 
   scope :sin_telefono, where("suppliers.telefono = '' ")
   scope :no_actualizados, where("updated_at IS NULL" )
   scope :orden_alfabetico, order("suppliers.razonsocial")  
-  scope :by_company, lambda {|company| where(:empresa_id => company.id) }
+  scope :by_company, lambda {|company| where(:company_id => company.id) }
   
   delegate :saldo , :to => :comprobantes
   
