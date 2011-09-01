@@ -1,5 +1,5 @@
 module Hefesto
-  class NotacreditocpsController < AuthorizedController
+  class NotacreditosController < AuthorizedController
     # GET /notacreditos
     # GET /notacreditos.xml
     before_filter :authenticate_user!

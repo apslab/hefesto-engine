@@ -13,8 +13,8 @@
 
 <%= f.inputs do %>
   <%= f.input :fecha %>
-  <%= f.input :factura, :label => true, :as => :select, :collection => Factura.all.map{|c| [c.numero, c.id]} %>
-  <%= f.input :recibo, :label => true, :as => :select, :collection => Recibo.all.map{|c| [c.numero, c.id]} %>
+  <%= f.input :factura, :label => true, :as => :select, :collection => Hefesto::Factura.all.map{|c| [c.numero, c.id]} %>
+  <%= f.input :recibo, :label => true, :as => :select, :collection => Hefesto::Recibo.all.map{|c| [c.numero, c.id]} %>
   <%= f.input :importe %>
 <% end %>
 <%= f.buttons %>

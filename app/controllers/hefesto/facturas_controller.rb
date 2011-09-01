@@ -1,5 +1,4 @@
-module Hefesto
-  
+module Hefesto 
   class FacturasController < AuthorizedController
     before_filter :find_supplier
     before_filter :find_factura, :except => [:index, :new, :create]
