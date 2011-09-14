@@ -1,5 +1,21 @@
 <h1>Listado de cuenta corriente del proveedor <%= @supplier.razonsocial %></h1>
-<table>
+
+<% content_for(:breadcrumbs) do %>
+<%= breadcrumbs do |b|
+	b.item "Principal", root_path
+    b.item "Clientes", suppliers_path
+    b.item @supplier.razonsocial, root_path, :active => true
+end %>
+<%end%>
+
+<% content_for(:controls) do %>
+<%= controls do |c|
+    c.item "Exportar PDF", cuentacorriente_supplier_path(@cliente, :format => 'pdf'), :icon => "report_go"
+    c.item "Volver", suppliers_path, :icon => "application_go"
+end %>
+<%end%>
+
+<table class="table ">
  <tr>
     <th>T.C.</th>	
     <th>Numero</th>
@@ -15,7 +31,7 @@
     <td><%= cpbte.fecha %></td>
     <td align="right"><%= cpbte.total %></td>
     <td><%= cpbte.fechavto %></td>
-	<td><%= cpbte.created_at %></td>
+	  <td><%= cpbte.created_at %></td>
   </tr>
 <% end %>
 <tr>
@@ -26,5 +42,3 @@
   <td></td>
 </tr>
 </table>
-
-<%= link_to 'Volver', supplier_path(@supplier) %>

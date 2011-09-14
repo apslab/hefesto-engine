@@ -18,7 +18,7 @@ class Supplier < ActiveRecord::Base
   has_many :facturas, :class_name => '::Hefesto::Factura'
   has_many :recibos, :class_name => '::Hefesto::Recibo'
   has_many :notacreditos, :class_name => '::Hefesto::Notacredito'
-  has_many :comprobantes do 
+  has_many :comprobantes, :foreign_key => "cliente_id" do 
     def saldo
       fc = where("Type = 'Hefesto::Factura'").sum(:importe)
       nc = where("Type = 'Hefesto::Notacredito'").sum(:importe)

@@ -81,21 +81,20 @@ class SuppliersController < AuthorizedController
     end
   end
 
-
-def cuentacorriente
-  @cuentacorriente = @supplier.comprobantes.order("fecha")
+  def cuentacorriente
+    @cuentacorriente = @supplier.comprobantes.order("fecha")
   
-  respond_to do |format|
-    format.html # .html.erb
-    format.xml  { render :xml => @supplier }
-    format.pdf { render :pdf => "cc_#{@supplier.id}",
-                     :template => 'suppliers/cuentacorriente.html.erb',
-                     :show_as_html => params[:debug].present?,      # allow debuging based on url param
-                     :layout => 'pdf.html.erb',
-                     :footer => { :right => "Reporte generado el #{l DateTime.current}" }
-               }
+    respond_to do |format|
+      format.html # .html.erb
+      format.xml  { render :xml => @supplier }
+      format.pdf { render :pdf => "cc_#{@supplier.id}",
+                       :template => 'suppliers/cuentacorriente.html.erb',
+                       :show_as_html => params[:debug].present?,      # allow debuging based on url param
+                       :layout => 'pdf.html.erb',
+                       :footer => { :right => "Reporte generado el #{l DateTime.current}" }
+                 }
+    end
   end
-end
 
 def list_accounts
   #begin

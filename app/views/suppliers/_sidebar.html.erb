@@ -2,12 +2,12 @@
 <div class='block'>
   <ul class='navigation'>    
     <li><%= link_to("Nueva Factura", new_supplier_hefesto_factura_path(@supplier))%></li>
-    <li><%= link_to("Nuevo Recibo", new_supplier_compra_recibo_path(@supplier))%></li>
-    <li><%= link_to("Nueva Nota de credito", new_supplier_compra_notacredito_path(@supplier))%></li>
+    <li><%= link_to("Nuevo Recibo", new_supplier_hefesto_compra_recibo_path(@supplier))%></li>
+    <li><%= link_to("Nueva Nota de credito", new_supplier_hefesto_compra_notacredito_path(@supplier))%></li>
 
-    <li><%= link_to("Facturas vs Recibos", facturarecibos_path)%></li>
-    <li><%= link_to("Facturas vs Notas de credito", facturanotacreditos_path)%></li>	
-	<li><%= link_to("Cuenta corriente", cuentacorriente_supplier_path(@supplier) )%></li>
+    <li><%= link_to("Facturas vs Recibos", supplier_hefesto_compra_facturarecibos_path(@supplier))%></li>
+    <li><%= link_to("Facturas vs Notas de credito", supplier_hefesto_compra_facturanotacreditos_path(@supplier))%></li>	
+	  <li><%= link_to("Cuenta corriente", cuentacorriente_supplier_path(@supplier) )%></li>
   </ul>
 </div>
 <%end%>
