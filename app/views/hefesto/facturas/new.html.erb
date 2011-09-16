@@ -1,5 +1,9 @@
 <h1>Nueva factura</h1>
 
-<%= render 'form' %>
+<% content_for(:controls) do %>
+<%= controls do |c|
+         c.item "Volver", supplier_path(@factura.supplier), :icon => "application_go"
+end %>
+<%end%>
 
-<%= link_to 'Back', supplier_hefesto_facturas_path %>
+<%= render 'form' %>

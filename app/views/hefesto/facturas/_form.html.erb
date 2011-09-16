@@ -14,7 +14,7 @@
 
 	<%= f.inputs do %>
 	  <%= f.input :fecha , :as => :datepicker %>
-	  <%= f.input :supplier, :label => true, :as => :select, :collection => current_company.suppliers.map{|c| [c.razonsocial, c.id]}, :include_blank => false %>
+	  <%= t('activerecord.attributes.supplier.razonsocial') + ' : ' + @supplier.razonsocial %>
 	  <%= f.input :numero , :as => :numeric, :input_html => { :size => 10, :style => "text-align:right;" } %>
 	  <%= f.input :fechavto , :as => :datepicker %>
 
@@ -30,7 +30,7 @@
 	</table>
 
 	<div class="links">
-		<%= link_to_add_association 'agrega detalle', f, :detalles,'data-association-insertion-position' => :after %>
+		<%= link_to_add_association icon('add', :small, :style => 'vertical-align:middle;')+'Agrega detalle', f, :detalles,'data-association-insertion-position' => :after , :class => 'global_button button'%>
 	</div>
 
 	<div class='detalles'>
