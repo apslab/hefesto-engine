@@ -2,22 +2,44 @@
   <%= javascript_tag do %>
     function calcula_total(input){
       var total = parseFloat($($(input).closest('tr').find('input.para_calcula')[0]).val()) * 	parseFloat($($(input).closest('tr').find('input.para_calcula')[1]).val()) * 
-(1 + (parseFloat($($(input).closest('tr').find('input.para_calcula')[2]).val())/100));
+(1 + (parseFloat($($(input).closest('tr').find('.tasaiva')).val())/100));
 
       $($(input).closest('tr').find('.calcula_total')[0]).html(total.toFixed(2));
+      var total_total=0.0;
+      $('.calcula_total').each(function(i,data){
+	    total_total+=parseFloat($(data).html());
+      });
+      $('.total_total').html(total_total.toFixed(2));
     }
   <% end %>
 <% end %>
 
-<%= semantic_form_for [@supplier,@factura] do |f| %>
+<% content_for(:head) do %>
+  <%= javascript_tag do %>
+    function pasa_tasa(select){
+		$.getJSON('/products/'+$(select).val(), function(data) {
+		  $(select).closest('tr').find('.tasaiva').val(data.porcentaje);
+		  $(select).closest('tr').find('.preciounitario').val(data.price);
+		  $(select).closest('tr').find('.description').val(data.description);
+		  
+		  $(select).closest('tr').find('.labeltasaiva').html(data.porcentaje.toFixed(2));
+		
+		  calcula_total($(select).closest('tr').find('.tasaiva'));
+		  $(select).closest('tr').find('.cantidad').focus();
+		});
+    }
+  <% end %>
+<% end %>
+
+<%= semantic_form_for [@supplier, @factura] do |f| %>
  <%= f.semantic_errors %>
+ <%= f.semantic_errors(:importe) %>
 
 	<%= f.inputs do %>
-	  <%= f.input :fecha , :as => :datepicker %>
+	  <%= f.input :fecha , :as => :date %>
 	  <%= t('activerecord.attributes.supplier.razonsocial') + ' : ' + @supplier.razonsocial %>
 	  <%= f.input :numero , :as => :numeric, :input_html => { :size => 10, :style => "text-align:right;" } %>
-	  <%= f.input :fechavto , :as => :datepicker %>
-
+	  <%= f.input :fechavto , :as => :date %>
 	<table>
 		<tr>
 			<th>Descripcion</th>
